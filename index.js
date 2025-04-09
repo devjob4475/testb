@@ -1,3 +1,4 @@
+require("dotenv").config();
 
 const express = require("express");
 const axios = require("axios");
@@ -6,9 +7,8 @@ const port = 8080;
 
 app.use(express.json());
 
-
 app.post("/save-m3u", async (req, res) => {
-  const { content,token ,url} = req.body;
+  const { content, url } = req.body;
 
   if (!content) {
     return res.status(400).send("Missing 'content' in request body.");
@@ -20,7 +20,7 @@ app.post("/save-m3u", async (req, res) => {
     try {
       const getResponse = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${process.env.TOKEN}`,
         },
       });
       sha = getResponse.data.sha;
@@ -34,7 +34,7 @@ app.post("/save-m3u", async (req, res) => {
     if (sha) {
       await axios.delete(url, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${process.env.TOKEN}`,
           "Content-Type": "application/json",
         },
         data: {
@@ -53,7 +53,7 @@ app.post("/save-m3u", async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${process.env.TOKEN}`,
           "Content-Type": "application/json",
         },
       }
