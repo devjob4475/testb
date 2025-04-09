@@ -73,11 +73,12 @@ app.listen(port, () => {
 
 setInterval(async () => {
   try {
-    const browser = await puppeteer.launch({ headless: "new" });
-    const page = await browser.newPage();
-    await page.goto("https://testflix2.vercel.app", {
-      waitUntil: "networkidle2",
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"], // เผื่อรันบน server ที่จำกัดสิทธิ์
     });
+    const page = await browser.newPage();
+    await page.goto("https://testflix2.vercel.app", { waitUntil: "networkidle2" });
     console.log("Opened https://testflix2.vercel.app like a real browser.");
     await browser.close();
   } catch (err) {
