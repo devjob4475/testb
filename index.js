@@ -1,9 +1,10 @@
-
 const express = require("express");
+const cors = require("cors"); // <-- เพิ่มตรงนี้
 const axios = require("axios");
 const app = express();
 const port = 8080;
 
+app.use(cors()); // <-- ให้ allow ทุก origin
 app.use(express.json());
 
 app.post("/save-m3u", async (req, res) => {
