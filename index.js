@@ -1,4 +1,3 @@
-const puppeteer = require("puppeteer");
 const express = require("express");
 const cors = require("cors"); // <-- เพิ่มตรงนี้
 const axios = require("axios");
