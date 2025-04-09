@@ -20,7 +20,7 @@ app.post("/save-m3u", async (req, res) => {
     try {
       const getResponse = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
         },
       });
       sha = getResponse.data.sha;
@@ -34,7 +34,7 @@ app.post("/save-m3u", async (req, res) => {
     if (sha) {
       await axios.delete(url, {
         headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
           "Content-Type": "application/json",
         },
         data: {
@@ -53,7 +53,7 @@ app.post("/save-m3u", async (req, res) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.TOKEN}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
           "Content-Type": "application/json",
         },
       }
