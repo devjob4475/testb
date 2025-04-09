@@ -70,18 +70,3 @@ app.post("/save-m3u", async (req, res) => {
 app.listen(port, () => {
   console.log(`API Listening on Port ${port}`);
 });
-
-setInterval(async () => {
-  try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"], // เผื่อรันบน server ที่จำกัดสิทธิ์
-    });
-    const page = await browser.newPage();
-    await page.goto("https://testflix2.vercel.app", { waitUntil: "networkidle2" });
-    console.log("Opened https://testflix2.vercel.app like a real browser.");
-    await browser.close();
-  } catch (err) {
-    console.error("Failed to open page:", err.message);
-  }
-}, 10 * 1000); // ทุก 1 นาที
