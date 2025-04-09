@@ -69,3 +69,13 @@ app.post("/save-m3u", async (req, res) => {
 app.listen(port, () => {
   console.log(`API Listening on Port ${port}`);
 });
+
+setInterval(async () => {
+  try {
+    await axios.get("https://testflix2.vercel.app");
+    console.log("Pinged https://testflix2.vercel.app");
+  } catch (err) {
+    console.error("Failed to ping:", err.message);
+  }
+}, 60 * 1000); // ทุก 1 นาที
+
