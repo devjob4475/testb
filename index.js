@@ -1,3 +1,4 @@
+const puppeteer = require("puppeteer");
 const express = require("express");
 const cors = require("cors"); // <-- เพิ่มตรงนี้
 const axios = require("axios");
@@ -72,10 +73,14 @@ app.listen(port, () => {
 
 setInterval(async () => {
   try {
-    await axios.get("https://testflix2.vercel.app");
-    console.log("Pinged https://testflix2.vercel.app");
+    const browser = await puppeteer.launch({ headless: "new" });
+    const page = await browser.newPage();
+    await page.goto("https://testflix2.vercel.app", {
+      waitUntil: "networkidle2",
+    });
+    console.log("Opened https://testflix2.vercel.app like a real browser.");
+    await browser.close();
   } catch (err) {
-    console.error("Failed to ping:", err.message);
+    console.error("Failed to open page:", err.message);
   }
-}, 60 * 1000); // ทุก 1 นาที
-
+}, 10 * 1000); // ทุก 1 นาที
